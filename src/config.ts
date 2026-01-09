@@ -1,21 +1,14 @@
 export const SITE = {
-  website: "https://markopteryx.dev/", // replace this with your deployed domain
+  website: "https://markopteryx.dev/",
   author: "Marko",
-  profile: "https://satnaing.dev/",
-  desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
+  profile: "https://markopteryx.dev/",
+  desc: "A personal blog about programming, technology, and life.",
   title: "Markopteryx",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
-  postPerIndex: 4, // Not used on landing page - all posts displayed
-  postPerPage: 4,
-  scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
+  scheduledPostMargin: 15 * 60 * 1000,
   showArchives: false,
-  showBackButton: true, // show back button in post detail
-  editPost: {
-    enabled: true,
-    text: "Edit page",
-    url: "https://github.com/satnaing/astro-paper/edit/main/",
-  },
+  showBackButton: true,
   dynamicOgImage: true,
   dir: "ltr", // "rtl" | "auto"
   lang: "en", // html lang code. Set this empty and default will be "en"
