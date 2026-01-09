@@ -19,7 +19,7 @@ const sortedPosts = getSortedPosts(posts);
   <main id="main-content" data-layout="index" class="app-layout">
     <div class="border-b border-border"></div>
 
-    <section id="posts" class="pt-12 pb-6">
+    <section id="posts">
       <ul>
         {sortedPosts.map(data => <Card variant="h3" {...data} />)}
       </ul>
