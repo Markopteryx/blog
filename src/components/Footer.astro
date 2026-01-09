@@ -1,0 +1,36 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import IconRss from "@/assets/icons/IconRss.svg";
+
+const currentYear = new Date().getFullYear();
+
+type Props = {
+  noMarginTop?: boolean;
+} & HTMLAttributes<"footer">;
+
+const { noMarginTop = false, class: className, ...attrs } = Astro.props;
+---
+
+<footer
+  class:list={["app-layout", { "mt-auto": !noMarginTop }, className]}
+  {...attrs}
+>
+  <div
+    class:list={[
+      "py-6 sm:py-4",
+      "border-t border-border",
+      "flex flex-col items-center justify-center gap-4",
+    ]}
+  >
+    <a
+      href="/rss.xml"
+      target="_blank"
+      class="flex items-center gap-2 hover:text-accent"
+      aria-label="RSS Feed"
+      title="RSS Feed"
+    >
+      <IconRss width={20} height={20} class="stroke-accent stroke-3" />
+      <span>Subscribe</span>
+    </a>
+  </div>
+</footer>
