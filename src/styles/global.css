@@ -8,6 +8,7 @@ html[data-theme="light"] {
   --background: #f2f5ec;
   --foreground: #353538;
   --accent: #1158d1;
+  --highlight: #5a8fe8;
   --muted: #bbc789;
   --border: #7cadff;
 }
@@ -16,6 +17,7 @@ html[data-theme="dark"] {
   --background: #212737;
   --foreground: #eaedf3;
   --accent: #ff6b01;
+  --highlight: #ff9040;
   --muted: #343f60;
   --border: #ab4b08;
 }
@@ -24,6 +26,7 @@ html[data-theme="dark"] {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
+  --color-highlight: var(--highlight);
   --color-muted: var(--muted);
   --color-border: var(--border);
 }

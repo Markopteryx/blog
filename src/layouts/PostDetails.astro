@@ -74,9 +74,9 @@ const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
 
 const currentPostIndex = allPosts.findIndex(a => a.id === post.id);
 
-const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
-const nextPost =
+const prevPost =
   currentPostIndex !== allPosts.length ? allPosts[currentPostIndex + 1] : null;
+const nextPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
 ---
 
 <Layout {...layoutProps}>
@@ -87,13 +87,14 @@ const nextPost =
     class:list={["app-layout pb-12", { "mt-8": !SITE.showBackButton }]}
     data-pagefind-body
   >
-    <h1
-      transition:name={slugifyStr(title)}
-      class="inline-block text-2xl font-bold text-accent sm:text-3xl"
-    >
-      {title}
-    </h1>
-    <div class="my-2 flex items-center gap-2">
+    <div class="flex items-baseline justify-between gap-4">
+      <h1
+        transition:name={slugifyStr(title)}
+        class="inline-block text-2xl font-bold text-accent sm:text-3xl"
+      >
+        {title}
+      </h1>
+      <!-- <div class="my-2 flex items-center gap-2"> -->
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
     </div>
     <article
@@ -103,7 +104,7 @@ const nextPost =
       <Content />
     </article>
 
-    <hr class="my-8 border-dashed" />
+    <hr class="my-8 w-full border-dashed" />
 
     <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8">
       {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />)}
@@ -111,7 +112,7 @@ const nextPost =
 
     <BackToTopButton />
 
-    <hr class="my-6 border-dashed" />
+    <hr class="my-6 w-full border-dashed" />
 
     <!-- Previous/Next Post Buttons -->
     <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
