@@ -174,31 +174,31 @@ export default async post => {
                           fontSize: 28,
                         },
                         children: [
-                          {
-                            type: "span",
-                            props: {
-                              children: [
-                                "by ",
-                                {
-                                  type: "span",
-                                  props: {
-                                    style: { color: "transparent" },
-                                    children: '"',
-                                  },
-                                },
-                                {
-                                  type: "span",
-                                  props: {
-                                    style: {
-                                      overflow: "hidden",
-                                      fontWeight: "bold",
-                                    },
-                                    children: post.data.author,
-                                  },
-                                },
-                              ],
-                            },
-                          },
+                          // {
+                          //   type: "span",
+                          //   props: {
+                          //     children: [
+                          //       "by ",
+                          //       {
+                          //         type: "span",
+                          //         props: {
+                          //           style: { color: "transparent" },
+                          //           children: '"',
+                          //         },
+                          //       },
+                          //       {
+                          //         type: "span",
+                          //         props: {
+                          //           style: {
+                          //             overflow: "hidden",
+                          //             fontWeight: "bold",
+                          //           },
+                          //           children: post.data.author,
+                          //         },
+                          //       },
+                          //     ],
+                          //   },
+                          // },
                           {
                             type: "span",
                             props: {

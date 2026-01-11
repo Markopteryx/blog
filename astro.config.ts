@@ -1,4 +1,4 @@
-import { defineConfig, envField } from "astro/config";
+import { defineConfig, envField, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
@@ -61,5 +61,16 @@ export default defineConfig({
   },
   experimental: {
     preserveScriptOrder: true,
+
+    fonts: [
+      {
+        name: "EB Garamond",
+        cssVariable: "--font-google-eb-garamond",
+        provider: fontProviders.google(),
+        fallbacks: ["monospace"],
+        weights: [400, 500, 600, 700, 800],
+        styles: ["normal", "italic"],
+      },
+    ],
   },
 });

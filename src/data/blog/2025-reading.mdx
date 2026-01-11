@@ -1,7 +1,7 @@
 ---
 title: Best things I read in 2025
 description: Interesting or unique things I read in 2025
-pubDatetime: 2026-01-09T00:00:00Z
+pubDatetime: 2026-01-03T00:00:00Z
 draft: false
 tags:
   - reading
@@ -20,154 +20,182 @@ I discovered this piece on January 2nd. Despite being written in early 2023, it 
 Zitron doesn't hedge—he calls venture capital "reckless" and growth-obsessed CEOs "arsonists". The article resonates as the past two years of software innovation have felt hollow as we watch tech companies try to justify their obscene AI spend with features nobody asked for.
 
 
-### Interesting Finds
+### Rust & Systems Programming
 
-[Experts Have It Easy](https://boydkane.com/essays/experts)
+<HeadingLink href="https://jyn.dev/the-core-of-rust/">The Core of Rust</HeadingLink>
 
-[Making Software](https://www.makingsoftware.com/)
+Rust is my favorite language and one I took a long time to learn. That was for a few reasons, at the time my background was in JS/Python and thus I was not exposed to many of Rust's language features; I was trying to learn lots of other things at the same time; and finally because _Rust is just hard_. This article does a fantastic job explaining why. To begin writing even simple programs in Rust requires knowledge of many different concepts and this is shown in the form of an example of a simple program in Rust and JavaScript. 
 
-[Bevy Rust Game Development Chapter 1](https://aibodh.com/posts/bevy-rust-game-development-chapter-1/)
-
-[Rust CRDT](https://kerkour.com/rust-crdt)
-
-[NumPy](https://dynomight.net/numpy/)
-
-[Second Error Model Convergence](https://matklad.github.io/2025/12/29/second-error-model-convergence.html)
-
-[The Core of Rust](https://jyn.dev/the-core-of-rust/)
-
-[You're All Nuts](https://fly.io/blog/youre-all-nuts/)
-
-[UV](https://emily.space/posts/251023-uv)
-
-[Fast](https://www.catherinejue.com/fast)
-
-[Cognitive](https://minds.md/zakirullin/cognitive)
-
-[But What If I Really Want a Faster Horse](https://rakhim.exotext.com/but-what-if-i-really-want-a-faster-horse)
-
-[Epoch](https://fellerts.no/projects/epoch.html)
-
-[Screens in Museums](https://sethpurcell.com/writing/screens-in-museums/)
-
-[Everything That's Wrong with Google](https://bitbytebit.substack.com/p/everything-thats-wrong-with-google)
-
-[Anna Alexei](https://sharif.io/anna-alexei)
-
-[Antirez News 145](https://antirez.com/news/145)
-
-[Blog Post](https://blog.meca.sh/3lxoty3shjc2z?auth_completed=true)
-
-[Nobody Cares](https://grantslatton.com/nobody-cares)
-
-[Migrating to Hetzner Cloud](https://digitalsociety.coop/posts/migrating-to-hetzner-cloud/)
-
-[No Graphics API](https://www.sebastianaaltonen.com/blog/no-graphics-api)
-
-[Local First](https://www.inkandswitch.com/essay/local-first/)
-
-[Thoughts After 10 Years](https://chriskiehl.com/article/thoughts-after-10-years)
-
-[Good System Design](https://www.seangoedecke.com/good-system-design/)
-
-[Best Programmers](https://endler.dev/2025/best-programmers/)
-
-[Thrive in Obscurity](https://www.jeetmehta.com/posts/thrive-in-obscurity)
-
-[Go Ahead Self Host Postgres](https://pierce.dev/notes/go-ahead-self-host-postgres#user-content-fn-1)
-
-[The Frontend Treadmill](https://polotek.net/posts/the-frontend-treadmill/)
-
-
-{/*
-https://aibodh.com/posts/bevy-rust-game-development-chapter-1/
-https://kerkour.com/rust-crdt
-https://dynomight.net/numpy/
-https://matklad.github.io/2025/12/29/second-error-model-convergence.html
-https://jyn.dev/the-core-of-rust/
-https://www.makingsoftware.com/
-{
-https://fly.io/blog/youre-all-nuts/
-https://news.ycombinator.com/item?id=44163063
-},
-{
-https://emily.space/posts/251023-uv,
-https://news.ycombinator.com/item?id=45751400
-},
-{
-https://www.catherinejue.com/fast,
-https://news.ycombinator.com/item?id=44736967
-},
-{
-https://minds.md/zakirullin/cognitive,
-https://news.ycombinator.com/item?id=45074248
-},
-{
-https://rakhim.exotext.com/but-what-if-i-really-want-a-faster-horse,
-https://news.ycombinator.com/item?id=43652723
-},
-{
-https://fellerts.no/projects/epoch.html,
-https://news.ycombinator.com/item?id=44347425
-},
-{
-https://sethpurcell.com/writing/screens-in-museums/
-https://news.ycombinator.com/item?id=45199931
-},
-{
-https://bitbytebit.substack.com/p/everything-thats-wrong-with-google
-https://news.ycombinator.com/item?id=45366566
-},
-{
-https://sharif.io/anna-alexei,
-https://news.ycombinator.com/item?id=45348495
-},
-{
-https://antirez.com/news/145,
-https://news.ycombinator.com/item?id=42983275
-},
-{
-https://blog.meca.sh/3lxoty3shjc2z?auth_completed=true
-https://news.ycombinator.com/item?id=45099922
-},
-{
-https://grantslatton.com/nobody-cares
-https://news.ycombinator.com/item?id=42707238
-},
-{
-https://digitalsociety.coop/posts/migrating-to-hetzner-cloud/
-https://news.ycombinator.com/item?id=45614922
-},
-{
-https://www.sebastianaaltonen.com/blog/no-graphics-api
-https://news.ycombinator.com/item?id=46293062
-},
-{
-https://www.inkandswitch.com/essay/local-first/
-https://news.ycombinator.com/item?id=44473135
+```rs
+#!/usr/bin/env -S cargo -Zscript
+---
+package.edition = "2024"
+[dependencies]
+notify = "=8.2.0"
+---
+use std::path::Path;
+use notify::{RecursiveMode, Watcher};
+fn main() -> Result<(), notify::Error> {
+    let paths = ["pages", "templates", "static"];
+    let mut watcher = notify::recommended_watcher(|result: Result<notify::Event, _>| {
+        if let Ok(event) = result {
+            let paths: Vec<String> = event.paths
+                .into_iter()
+                .map(|path| path.display().to_string())
+                .collect();
+            println!(":{:?} {}", event.kind, paths.join(" "));
+        }
+    })?;
+    for path in paths {
+        watcher.watch(Path::new(path), RecursiveMode::Recursive)?;
+    }
+    loop { std::thread::park(); } // sleep forever
 }
-{
-https://chriskiehl.com/article/thoughts-after-10-years
-https://news.ycombinator.com/item?id=42946281
-},
-{
-https://www.seangoedecke.com/good-system-design/
-https://news.ycombinator.com/item?id=44921137
-},
-{
-https://endler.dev/2025/best-programmers/
-https://news.ycombinator.com/item?id=43629307
-},
-{
-https://www.jeetmehta.com/posts/thrive-in-obscurity
-https://news.ycombinator.com/item?id=44155746
-},
-{
-https://pierce.dev/notes/go-ahead-self-host-postgres#user-content-fn-1
-https://news.ycombinator.com/item?id=46336947
-},
-{
-https://polotek.net/posts/the-frontend-treadmill/
-https://news.ycombinator.com/item?id=43422162
-},
-*/}
+```
+This Rust program requires understanding enums, pattern matching, traits, the borrow checker, iterators, closures and Rust's particular brand of error handling. The JavaScript equivalent needs far fewer concepts to achieve the same result. 
+
+```js
+const fs = require('fs');
+const paths = ['pages', 'templates', 'static'];
+for (let path of paths) {
+  fs.watch(path, (eventType, filename) => {
+    if (filename !== null) {
+      console.log(`${eventType} ${filename}`)
+    }
+  });
+}
+await (new Promise(() => {})); // sleep forever
+```
+
+But here's the key insight: Rust's complexity isn't accidental bloat. These features were designed together and interlock deliberately. Pattern matching exists because enums exist. Traits exist because Send/Sync need encoding. The borrow checker enables compile-time thread safety guarantees that Java can only document in comments. You can't learn these features one at a time because they weren't designed one at a time—they're a coherent system for memory safety without garbage collection.
+
+Also, and the reason this article was memorable to me is the `#!/usr/bin/env -S cargo -Zscript` at the top of the Rust example. As someone who uses `uv` scripts in Python I was extremely surprised to find out that Rust has support for this script syntax. If you'd like to know more you can learn about it [here](https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#script).
+
+<HeadingLink href="https://kerkour.com/rust-crdt">Rust CRDT</HeadingLink>
+
+A deep dive into implementing Conflict-free Replicated Data Types in Rust. Essential reading if you're building distributed systems that need eventual consistency without coordination.
+
+<HeadingLink href="https://matklad.github.io/2025/12/29/second-error-model-convergence.html">Second Error Model Convergence</HeadingLink>
+
+Matklad's analysis of how different programming languages are converging on similar error handling patterns. Insightful comparisons between Rust, Swift, and newer languages.
+
+<HeadingLink href="https://aibodh.com/posts/bevy-rust-game-development-chapter-1/">Bevy Rust Game Development Chapter 1</HeadingLink>
+
+A solid introduction to game development with Bevy and Rust. The tutorial walks through ECS concepts and gets you rendering sprites quickly without overwhelming you with complexity.
+
+### Infrastructure & DevOps
+
+<HeadingLink href="https://fly.io/blog/youre-all-nuts/">You're All Nuts</HeadingLink>
+
+Fly.io's characteristically blunt take on the state of infrastructure tooling. They make a compelling case for why we've overcomplicated deployment pipelines. [HN](https://news.ycombinator.com/item?id=44163063)
+
+<HeadingLink href="https://digitalsociety.coop/posts/migrating-to-hetzner-cloud/">Migrating to Hetzner Cloud</HeadingLink>
+
+A practical guide to moving infrastructure to Hetzner. Includes real cost comparisons with major cloud providers that might surprise you. [HN](https://news.ycombinator.com/item?id=45614922)
+
+<HeadingLink href="https://pierce.dev/notes/go-ahead-self-host-postgres#user-content-fn-1">Go Ahead Self Host Postgres</HeadingLink>
+
+Permission granted: self-hosting Postgres isn't as scary as managed database vendors want you to believe. Practical advice for running your own database. [HN](https://news.ycombinator.com/item?id=46336947)
+
+<HeadingLink href="https://www.inkandswitch.com/essay/local-first/">Local First</HeadingLink>
+
+Ink & Switch's manifesto for local-first software. Makes a compelling case for keeping data on user devices while still enabling collaboration. [HN](https://news.ycombinator.com/item?id=44473135)
+
+### Software Engineering Craft
+
+<HeadingLink href="https://www.makingsoftware.com/">Making Software</HeadingLink>
+
+An excellent resource on the craft of building software. It covers everything from first principles to practical techniques that make codebases more maintainable over time.
+
+<HeadingLink href="https://boydkane.com/essays/experts">Experts Have It Easy</HeadingLink>
+
+Like most people, I am an expert in some domains and a novice in others. Boyd Kane articulates what everyone knows -- _experts are more efficient than novices while achieving better results_. He goes on to paint an interesting story about navigating through a maze in the shoes of a novice and expert respectively. Pointing out that in most new situations novices don't reach for the right tools as they simply aren't aware of them. When my junior engineer is trying to follow the data path through an 
+application, I come over to see dozens of print statements when the debugger could have solved this in less than a minute. They weren't being stubborn or lazy—as Kane observes: 
+
+> the novice didn't even know there was a decision in the first place
+
+This article isn't transformative, but it reminds me to extend the same humility to others as I would like shown to myself when doing something new. It's easy to forget the confusion and uncertainty of being a novice once you've internalized the expert's toolkit. The junior engineer with print statements scattered everywhere isn't making poor choices—they're making the best choice available to them with their current mental model. My job isn't to judge their approach, but to help them see the decisions they didn't know existed.
+
+<HeadingLink href="https://minds.md/zakirullin/cognitive">Cognitive</HeadingLink>
+
+A collection of insights on cognitive load in software development. Practical advice on reducing mental overhead when working with complex codebases. [HN](https://news.ycombinator.com/item?id=45074248)
+
+<HeadingLink href="https://www.seangoedecke.com/good-system-design/">Good System Design</HeadingLink>
+
+Practical principles for designing systems that last. Focuses on simplicity and avoiding premature optimization in architectural decisions. [HN](https://news.ycombinator.com/item?id=44921137)
+
+<HeadingLink href="https://antirez.com/news/145">Antirez News 145</HeadingLink>
+
+Salvatore Sanfilippo's musings on programming and Redis. His writing always offers unique perspectives from decades of building influential open source software. [HN](https://news.ycombinator.com/item?id=42983275)
+
+### Career & Developer Life
+
+<HeadingLink href="https://chriskiehl.com/article/thoughts-after-10-years">Thoughts After 10 Years</HeadingLink>
+
+Reflections on a decade in software development. The author shares lessons learned and how their perspective has evolved over time. [HN](https://news.ycombinator.com/item?id=42946281)
+
+<HeadingLink href="https://endler.dev/2025/best-programmers/">Best Programmers</HeadingLink>
+
+An analysis of what separates great programmers from good ones. The traits identified go beyond technical skill to include communication and empathy. [HN](https://news.ycombinator.com/item?id=43629307)
+
+<HeadingLink href="https://www.jeetmehta.com/posts/thrive-in-obscurity">Thrive in Obscurity</HeadingLink>
+
+A case for building quietly without chasing visibility. The author argues that obscurity can be a competitive advantage for focused work. [HN](https://news.ycombinator.com/item?id=44155746)
+
+<HeadingLink href="https://grantslatton.com/nobody-cares">Nobody Cares</HeadingLink>
+
+A liberating reminder that most of our anxieties about public perception are overblown. The author encourages shipping work without worrying about judgment. [HN](https://news.ycombinator.com/item?id=42707238)
+
+### Tools & Developer Experience
+
+<HeadingLink href="https://emily.space/posts/251023-uv">UV</HeadingLink>
+
+A review of Astral's UV package manager for Python. The speed improvements over pip are remarkable, and the author explains why this matters for developer experience. [HN](https://news.ycombinator.com/item?id=45751400)
+
+<HeadingLink href="https://polotek.net/posts/the-frontend-treadmill/">The Frontend Treadmill</HeadingLink>
+
+A critique of the constant churn in frontend development. The author examines why we keep reinventing the same patterns with new frameworks. [HN](https://news.ycombinator.com/item?id=43422162)
+
+<HeadingLink href="https://dynomight.net/numpy/">NumPy</HeadingLink>
+
+A surprisingly entertaining piece about NumPy's design decisions and quirks. The author manages to make array broadcasting genuinely interesting to read about.
+
+### Graphics & Game Dev
+
+<HeadingLink href="https://www.sebastianaaltonen.com/blog/no-graphics-api">No Graphics API</HeadingLink>
+
+A radical rethinking of how we should interface with GPUs. The author proposes simplifications that could make graphics programming more accessible. [HN](https://news.ycombinator.com/item?id=46293062)
+
+### Tech Industry Critique
+
+<HeadingLink href="https://bitbytebit.substack.com/p/everything-thats-wrong-with-google">Everything That's Wrong with Google</HeadingLink>
+
+A comprehensive breakdown of Google's decline in search quality and product focus. Documents the rot that's set in at one of tech's most influential companies. [HN](https://news.ycombinator.com/item?id=45366566)
+
+### Philosophy & Thinking
+
+<HeadingLink href="https://www.catherinejue.com/fast">Fast</HeadingLink>
+
+A meditation on speed in software and life. The author explores why we're obsessed with making things faster and whether that's always the right goal. [HN](https://news.ycombinator.com/item?id=44736967)
+
+<HeadingLink href="https://rakhim.exotext.com/but-what-if-i-really-want-a-faster-horse">But What If I Really Want a Faster Horse</HeadingLink>
+
+A contrarian take on the famous Ford quote. Sometimes users know exactly what they want, and innovation isn't always the answer to every problem. [HN](https://news.ycombinator.com/item?id=43652723)
+
+### Creative & Misc
+
+<HeadingLink href="https://fellerts.no/projects/epoch.html">Epoch</HeadingLink>
+
+A fascinating project exploring time representation in computing. The visualizations help you understand just how arbitrary our timestamp conventions really are. [HN](https://news.ycombinator.com/item?id=44347425)
+
+<HeadingLink href="https://sethpurcell.com/writing/screens-in-museums/">Screens in Museums</HeadingLink>
+
+A critique of how museums have embraced digital displays at the expense of direct engagement with artifacts. Makes you think about the role of technology in cultural spaces. [HN](https://news.ycombinator.com/item?id=45199931)
+
+<HeadingLink href="https://sharif.io/anna-alexei">Anna Alexei</HeadingLink>
+
+A beautifully written piece that blends personal narrative with technical insight. The storytelling approach makes complex ideas more accessible and memorable. [HN](https://news.ycombinator.com/item?id=45348495)
+
+<HeadingLink href="https://blog.meca.sh/3lxoty3shjc2z?auth_completed=true">Blog Post</HeadingLink>
+
+A thought-provoking piece that challenges conventional wisdom about software architecture. Worth reading for the contrarian perspective alone. [HN](https://news.ycombinator.com/item?id=45099922)

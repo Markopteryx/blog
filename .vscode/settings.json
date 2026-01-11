@@ -1,0 +1,18 @@
+{
+    "cSpell.words": [
+        "Antirez",
+        "CRDT",
+        "Marko",
+        "Markopteryx",
+        "Matklad's",
+        "Sanfilippo's",
+        "Societally",
+        "Zitron",
+        "Zscript"
+    ],
+    "cSpell.enabledFileTypes": {
+        "typescript": false,
+        "javascript": false,
+        "json": false
+    }
+}

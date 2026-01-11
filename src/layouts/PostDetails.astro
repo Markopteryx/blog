@@ -11,6 +11,7 @@ import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
+import ShareLinks from "@/components/ShareLinks.astro";
 import { SITE } from "@/config";
 
 type Props = {
@@ -112,7 +113,9 @@ const nextPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
 
     <BackToTopButton />
 
-    <hr class="my-6 w-full border-dashed" />
+    <ShareLinks />
+
+    <!-- <hr class="my-6 w-full border-dashed" /> -->
 
     <!-- Previous/Next Post Buttons -->
     <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
