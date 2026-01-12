@@ -71,6 +71,14 @@ export default defineConfig({
         weights: [400, 500, 600, 700, 800],
         styles: ["normal", "italic"],
       },
+      {
+        name: "Open Sans",
+        cssVariable: "--font-google-open-sans",
+        provider: fontProviders.google(),
+        fallbacks: ["sans-serif"],
+        weights: [400, 600, 700],
+        styles: ["normal"],
+      },
     ],
   },
 });
