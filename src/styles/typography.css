@@ -3,7 +3,7 @@
 @layer base {
   /* ===== Override default Tailwind Typography styles ===== */
   .app-prose {
-    @apply prose text-[1.25rem];
+    @apply prose text-[1.15rem];
 
     h1,
     h2,
