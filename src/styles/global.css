@@ -14,12 +14,12 @@ html[data-theme="light"] {
 }
 
 html[data-theme="dark"] {
-  --background: #212737;
-  --foreground: #eaedf3;
-  --accent: #ff6b01;
-  --highlight: #ff9040;
-  --muted: #343f60;
-  --border: #ab4b08;
+  --background: #282828;
+  --foreground: #ebdbb2;
+  --accent: #fabd2f;
+  --highlight: #fe8019;
+  --muted: #504945;
+  --border: #d65d0e;
 }
 
 @theme inline {
