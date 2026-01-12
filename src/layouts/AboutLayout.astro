@@ -6,7 +6,7 @@ import Breadcrumb from "@/components/Breadcrumb.astro";
 import Layout from "./Layout.astro";
 import { SITE } from "@/config";
 
-type Props = MarkdownLayoutProps<{ title: string }>;
+type Props = MarkdownLayoutProps<{ title: string; introText?: string }>;
 
 const { frontmatter } = Astro.props;
 ---
@@ -17,8 +17,66 @@ const { frontmatter } = Astro.props;
   <main id="main-content" class="app-layout">
     <section id="about" class="app-prose mb-28 max-w-app prose-img:border-0">
       <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter.title}</h1>
-      <slot />
+      <div id="about-content">
+        <slot />
+      </div>
     </section>
   </main>
   <Footer />
 </Layout>
+
+<script>
+  function initAboutTypewriter() {
+    const content = document.querySelector("#about-content");
+    if (!content) return;
+
+    const firstP = content.querySelector("p");
+    if (!firstP || firstP.dataset.typed) return;
+
+    const text = firstP.textContent || "";
+    firstP.textContent = "";
+    firstP.dataset.typed = "true";
+
+    let i = 0;
+    const cursor = document.createElement("span");
+    cursor.className = "typing-cursor";
+    cursor.textContent = "|";
+    firstP.appendChild(cursor);
+
+    function type() {
+      if (i < text.length) {
+        cursor.before(text.charAt(i));
+        i++;
+        setTimeout(type, 40);
+      } else {
+        setTimeout(() => cursor.remove(), 1000);
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          type();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(firstP);
+  }
+
+  initAboutTypewriter();
+  document.addEventListener("astro:after-swap", initAboutTypewriter);
+</script>
+
+<style is:global>
+  .typing-cursor {
+    animation: blink 0.7s step-end infinite;
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>

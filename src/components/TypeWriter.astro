@@ -1,0 +1,61 @@
+---
+interface Props {
+  text: string;
+  speed?: number;
+}
+
+const { text, speed = 50 } = Astro.props;
+---
+
+<span class="typewriter" data-text={text} data-speed={speed}></span>
+
+<script>
+  function initTypewriters() {
+    document.querySelectorAll(".typewriter").forEach(el => {
+      const element = el as HTMLElement;
+      if (element.dataset.typed) return;
+      element.dataset.typed = "true";
+
+      const text = element.dataset.text || "";
+      const speed = parseInt(element.dataset.speed || "50", 10);
+      let i = 0;
+
+      element.textContent = "";
+
+      function type() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        }
+      }
+
+      const observer = new IntersectionObserver(
+        entries => {
+          if (entries[0].isIntersecting) {
+            type();
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.1 }
+      );
+
+      observer.observe(element);
+    });
+  }
+
+  initTypewriters();
+  document.addEventListener("astro:after-swap", initTypewriters);
+</script>
+
+<style>
+  .typewriter::after {
+    content: "|";
+    animation: blink 0.7s step-end infinite;
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>
