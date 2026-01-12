@@ -23,11 +23,11 @@ const { title, description, ...props } = data;
         "focus-visible:no-underline focus-visible:underline-offset-0",
       ]}
     >
-      <Heading style={{ viewTransitionName: slugifyStr(title) }}>
+      <Heading style={{ viewTransitionName: slugifyStr(title), fontFamily: "var(--font-google-open-sans), sans-serif" }}>
         {title}
       </Heading>
     </a>
     <Datetime {...props} />
   </div>
-  <p class="pt-0.5 text-sm">{description}</p>
+  <p class="pt-0.5 text-sm" style="font-family: var(--font-google-open-sans), sans-serif;">{description}</p>
 </li>
