@@ -37,6 +37,7 @@ const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
 <div class:list={["flex items-center gap-x-2 opacity-80", className]}>
   <time
     class:list={["text-sm", { "sm:text-base": size === "lg" }]}
+    style="font-family: var(--font-google-open-sans), sans-serif;"
     datetime={datetime.toISOString()}>{date}</time
   >
   <IconCalendar
