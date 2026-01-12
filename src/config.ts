@@ -1,6 +1,6 @@
 export const SITE = {
   author: "Marko",
-  title: "Markopteryx",
+  title: "markopteryx",
   website: "https://markopteryx.dev/",
   profile: "https://markopteryx.dev/",
   desc: "A personal blog about programming, technology, and life.",

@@ -1,6 +1,6 @@
 {
-  "name": "Markopteryx",
-  "short_name": "Markopteryx",
+  "name": "markopteryx",
+  "short_name": "markopteryx",
   "description": "A personal blog about programming, technology, and life.",
   "start_url": "/",
   "display": "standalone",
