@@ -91,7 +91,7 @@ const nextPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
     <div class="flex items-baseline justify-between gap-4">
       <h1
         transition:name={slugifyStr(title)}
-        class="inline-block text-2xl font-bold text-accent sm:text-3xl"
+        class="link-underline active inline-block text-2xl font-bold text-accent sm:text-3xl"
         style="font-family: var(--font-google-open-sans), sans-serif;"
       >
         {title}

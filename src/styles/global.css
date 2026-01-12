@@ -82,7 +82,8 @@ html[data-theme="dark"] {
   background: currentColor;
   transition: width 0.25s ease-out;
 }
-.link-underline:hover::after {
+.link-underline:hover::after,
+.link-underline.active::after {
   width: 100%;
 }
 
