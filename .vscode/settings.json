@@ -14,5 +14,11 @@
         "typescript": false,
         "javascript": false,
         "json": false
+    },
+    "terminal.integrated.defaultProfile.windows": "nu",
+    "terminal.integrated.profiles.windows": {
+        "nu": {
+            "path": "C:\\Program Files\\nu\\bin\\nu.exe"
+        }
     }
 }
