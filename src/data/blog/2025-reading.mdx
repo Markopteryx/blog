@@ -71,14 +71,61 @@ But here's the key insight: Rust's complexity isn't accidental bloat. These feat
 
 Also, and the reason this article was memorable to me is the `#!/usr/bin/env -S cargo -Zscript` at the top of the Rust example. As someone who uses `uv` scripts in Python I was extremely surprised to find out that Rust has support for this script syntax. If you'd like to know more you can learn about it [here](https://doc.rust-lang.org/nightly/cargo/reference/unstable.html#script).
 
-
 <HeadingLink href="https://matklad.github.io/2025/12/29/second-error-model-convergence.html">Second Error Model Convergence</HeadingLink>
 
-Matklad's analysis of how different programming languages are converging on similar error handling patterns. Insightful comparisons between Rust, Swift, and newer languages.
+Alex's writings are consistently some of my favourites and this piece, released at the very end of the year is no _exception_. Here, he builds up on the work of Joe Duffy's [Error Model](https://joeduffyblog.com/2016/02/07/the-error-model/#recoverable-errors-type-directed-exceptions) and states that most modern languages have converged to the similar error-handling semantics. Somewhat strangely I've always enjoyed reasoning about all the ways code can fail and its great to see error handling get the discussion it warrants. 
 
-<HeadingLink href="https://aibodh.com/posts/bevy-rust-game-development-chapter-1/">Bevy Rust Game Development Chapter 1</HeadingLink>
+Not surprisingly then, it was natural for me to find joy in Rust's errors as value construction. Having watched many people now learn Rust however; you do learn that some engineers really don't want to deal with errors and those coming from languages with unchecked exceptions can struggle with the verbosity demanded by Rust. I think most of this is a reflection of the style of programs typically written in something like Python vs. Rust. 
 
-A solid introduction to game development with Bevy and Rust. The tutorial walks through ECS concepts and gets you rendering sprites quickly without overwhelming you with complexity.
+What is true is that unlike higher-level languages the Rust error handling story is still evolving and while the`anyhow` and `thiserror` crates are extremely popular they are far from all-encompassing. Recently I stumbled upon the [rootcause](https://github.com/rootcause-rs/rootcause) crate, which attempts to build rich, structured errors capturing the entire history of an execution failure. 
+
+```rust
+use rootcause::prelude::*;
+
+fn read_file(path: &str) -> Result<String, Report> {
+    // The ? operator automatically converts io::Error to Report
+    let content = std::fs::read_to_string(path)?;
+    Ok(content)
+}
+
+fn load_config(path: &str) -> Result<String, Report> {
+    // Add context to explain what this file is for
+    let content = read_file(path)
+        .context("Failed to load application configuration")?;
+    Ok(content)
+}
+
+fn load_config_with_debug_info(path: &str) -> Result<String, Report> {
+    // Attach debugging information
+    let content = load_config(path)
+        .attach(format!("Config path: {path}"))
+        .attach("Expected format: TOML")?;
+    Ok(content)
+}
+
+fn startup(config_path: &str, environment: &str) -> Result<(), Report> {
+    let _config = load_config_with_debug_info(config_path)
+        .context("Application startup failed")
+        .attach(format!("Environment: {environment}"))?;
+    Ok(())
+}
+```
+
+Which leads to the output:
+
+```bash
+ ● Application startup failed
+ ├ examples/basic.rs:76:10
+ ├ Environment: production
+ │
+ ● Failed to load application configuration
+ ├ examples/basic.rs:47:35
+ ├ Config path: /nonexistent/config.toml
+ ├ Expected format: TOML
+ │
+ ● No such file or directory (os error 2)
+ ╰ examples/basic.rs:34:19
+```
 
 ### Infrastructure & DevOps
 
@@ -194,5 +241,11 @@ A critique of how museums have embraced digital displays at the expense of direc
 A beautifully written piece that blends personal narrative with technical insight. The storytelling approach makes complex ideas more accessible and memorable. [HN](https://news.ycombinator.com/item?id=45348495)
 
 <HeadingLink href="https://blog.meca.sh/3lxoty3shjc2z?auth_completed=true">Blog Post</HeadingLink>
-
 A thought-provoking piece that challenges conventional wisdom about software architecture. Worth reading for the contrarian perspective alone. [HN](https://news.ycombinator.com/item?id=45099922)
+
+
+## Just Useful
+
+In my adventures I stumble upon many great things but not everything is strictly fantastic prose (I sure am not), or life-altering but sometimes things are just useful and this list captures those
+
+- [Learn Bevy](https://aibodh.com/posts/bevy-rust-game-development-chapter-1/) -> It can be _really_ hard to learn Bevy as its rapidly changing and so often the docs are out of place and ECS isn't something everyone knows. This fantastic piece gives a multi-part tutorial, skipping none of the details
