@@ -12,6 +12,7 @@ import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import ShareLinks from "@/components/ShareLinks.astro";
+import ScrollToc from "@/components/ScrollToc.astro";
 import { SITE } from "@/config";
 
 type Props = {
@@ -83,6 +84,7 @@ const nextPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
 <Layout {...layoutProps}>
   <Header />
   <BackButton />
+  <ScrollToc />
   <main
     id="main-content"
     class:list={["app-layout pb-12", { "mt-8": !SITE.showBackButton }]}
