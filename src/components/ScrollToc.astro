@@ -2,11 +2,11 @@
   id="scroll-toc"
   class="fixed left-0 top-1/2 -translate-y-1/2 z-50 h-[90vh] py-0 pr-6 pl-4 hidden min-[1200px]:block"
 >
-  <div id="toc-hover-zone" class="fixed left-0 top-0 w-[300px] h-screen -z-10"></div>
+  <div id="toc-hover-zone" class="fixed left-0 top-0 w-75 h-screen -z-10"></div>
   <div id="toc-bar" class="relative h-full flex flex-col">
     <svg
       id="toc-thumb"
-      class="absolute -left-[3px] w-2 pointer-events-none"
+      class="absolute -left-0.75 w-2 pointer-events-none"
       style="top: 0; height: 15%"
       viewBox="0 0 20 100"
       preserveAspectRatio="none"
@@ -25,10 +25,18 @@
 
   #scroll-toc {
     --toc-saturation: 1;
+    --toc-scale: 1;
   }
 
   #scroll-toc.dormant {
     --toc-saturation: 0;
+    --toc-scale: 0.8;
+  }
+
+  #toc-bar {
+    transform: scaleY(var(--toc-scale));
+    transform-origin: center center;
+    transition: transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   #toc-bar :global(.toc-segment) {
@@ -43,7 +51,7 @@
   }
 
   #toc-bar :global(.toc-dot) {
-    @apply relative w-[9px] h-[9px] -ml-[3.5px] rounded-full cursor-pointer;
+    @apply relative w-2.25 h-2.25 -ml-[3.5px] rounded-full cursor-pointer;
     background-color: var(--muted);
     transition: transform 200ms ease-in-out, filter 800ms ease-out;
     filter: grayscale(calc(1 - var(--toc-saturation)));
@@ -56,7 +64,7 @@
 
   #toc-bar :global(.toc-dot.h3),
   #toc-bar :global(.toc-dot.h4) {
-    @apply w-[7px] h-[7px] -ml-[2.5px];
+    @apply w-1.75 h-1.75 -ml-[2.5px];
   }
 
   #toc-bar :global(.toc-dot:hover),
@@ -65,7 +73,7 @@
   }
 
   #toc-bar :global(.toc-label) {
-    @apply absolute left-4 top-1/2 -translate-y-1/2 -translate-x-[5px] leading-tight text-foreground opacity-0 cursor-pointer w-max max-w-[280px] whitespace-nowrap bg-background py-1 px-2;
+    @apply absolute left-4 top-1/2 -translate-y-1/2 -translate-x-1.25 leading-tight text-foreground opacity-0 cursor-pointer w-max max-w-70 whitespace-nowrap bg-background py-1 px-2;
     font-size: 0.7rem;
     transition: opacity 200ms ease-in-out, transform 200ms ease-in-out, color 200ms ease-in-out;
   }
@@ -194,14 +202,17 @@
     let currentTop = 0;
     let isAnimating = false;
     let dormantTimeout: number | null = null;
+    let isHovered = false;
     const dotsTouching = new Set<number>();
 
     function wakeUp() {
       scrollToc?.classList.remove("dormant");
       if (dormantTimeout) clearTimeout(dormantTimeout);
-      dormantTimeout = window.setTimeout(() => {
-        scrollToc?.classList.add("dormant");
-      }, 3000);
+      if (!isHovered) {
+        dormantTimeout = window.setTimeout(() => {
+          scrollToc?.classList.add("dormant");
+        }, 3000);
+      }
     }
 
     // Spring physics for smooth blob movement
@@ -270,8 +281,6 @@
       scrollVelocity = velocity;
       lastScrollTop = scrollTop;
 
-      wakeUp();
-
       // Target position
       const scrollPercent =
         scrollableHeight > 0 ? scrollTop / scrollableHeight : 0;
@@ -329,11 +338,27 @@
       }
     });
 
-    // Also wake up on hover
-    scrollToc.addEventListener("mouseenter", wakeUp);
+    // Wake up on hover over ToC area
+    const tocHoverZone = document.getElementById("toc-hover-zone");
+    scrollToc.addEventListener("mouseenter", () => {
+      isHovered = true;
+      wakeUp();
+    });
+    scrollToc.addEventListener("mouseleave", () => {
+      isHovered = false;
+      wakeUp();
+    });
+    tocHoverZone?.addEventListener("mouseenter", () => {
+      isHovered = true;
+      wakeUp();
+    });
+    tocHoverZone?.addEventListener("mouseleave", () => {
+      isHovered = false;
+      wakeUp();
+    });
 
-    // Start dormant timer
-    wakeUp();
+    // Start dormant immediately
+    scrollToc.classList.add("dormant");
     updateProgress();
   }
 
