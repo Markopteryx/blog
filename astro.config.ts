@@ -64,8 +64,8 @@ export default defineConfig({
 
     fonts: [
       {
-        name: "EB Garamond",
-        cssVariable: "--font-google-eb-garamond",
+        name: "Fira Code",
+        cssVariable: "--font-google-fira-code",
         provider: fontProviders.google(),
         fallbacks: ["monospace"],
         weights: [400, 500, 600, 700, 800],

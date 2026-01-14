@@ -23,7 +23,7 @@ html[data-theme="dark"] {
 }
 
 @theme inline {
-  --font-app: var(--font-google-eb-garamond);
+  --font-app: var(--font-google-fira-code);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
@@ -43,7 +43,7 @@ html[data-theme="dark"] {
   }
   body {
     @apply flex min-h-svh flex-col bg-background font-app text-foreground selection:bg-accent/75 selection:text-background;
-    font-family: "EB Garamond", serif;
+    font-family:  "Fira Code";
   }
   a,
   button {
@@ -56,7 +56,7 @@ html[data-theme="dark"] {
 }
 
 @utility max-w-app {
-  @apply max-w-5xl;
+  @apply max-w-3xl;
 }
 
 @utility app-layout {
