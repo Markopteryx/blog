@@ -72,6 +72,16 @@
     @apply bg-accent scale-[1.3];
   }
 
+  @keyframes dot-pulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(0.5); }
+    100% { transform: scale(1); }
+  }
+
+  #toc-bar :global(.toc-dot.pulse) {
+    animation: dot-pulse 250ms ease-out forwards;
+  }
+
   #toc-bar :global(.toc-label) {
     @apply absolute left-4 top-1/2 -translate-y-1/2 -translate-x-1.25 leading-tight text-foreground opacity-0 cursor-pointer w-max max-w-70 whitespace-nowrap bg-background py-1 px-2;
     font-size: 0.7rem;
@@ -241,24 +251,15 @@
 
         if (isTouching && !wasTouching) {
           dotsTouching.add(i);
-          dot.style.transform = "scale(0.6)";
-          setTimeout(() => {
-            dot.style.transform = "scale(1.3)";
-            setTimeout(() => {
-              dot.style.transform = "";
-            }, 150);
-          }, 100);
-          // Blob bulges
+          dot.classList.remove("pulse");
+          void dot.offsetWidth;
+          dot.classList.add("pulse");
           blobPath.setAttribute(
             "d",
             "M10,5 C20,5 20,20 19,30 C18,45 18,55 19,70 C20,80 20,95 10,95 C0,95 0,80 1,70 C2,55 2,45 1,30 C0,20 0,5 10,5 Z"
           );
         } else if (!isTouching && wasTouching) {
           dotsTouching.delete(i);
-          dot.style.transform = "scale(1.15)";
-          setTimeout(() => {
-            dot.style.transform = "";
-          }, 150);
         }
       });
 
