@@ -1,4 +1,5 @@
 <aside id="scroll-toc" class="scroll-toc">
+  <div class="toc-hover-zone" id="toc-hover-zone"></div>
   <div class="toc-bar" id="toc-bar">
     <div class="toc-thumb" id="toc-thumb"></div>
   </div>
@@ -13,6 +14,15 @@
     z-index: 50;
     height: 90vh;
     padding: 0 1.5rem 0 1rem;
+  }
+
+  .toc-hover-zone {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 100vh;
+    z-index: -1;
   }
 
   @media (max-width: 1200px) {
@@ -93,7 +103,7 @@
     left: 1rem;
     top: 50%;
     transform: translateY(-50%) translateX(-5px);
-    font-size: 0.65rem;
+    font-size: 0.8rem;
     line-height: 1.2;
     color: var(--foreground);
     opacity: 0;
@@ -110,7 +120,8 @@
     color: var(--accent);
   }
 
-  .scroll-toc:hover :global(.toc-label) {
+  .toc-hover-zone:hover ~ .toc-bar :global(.toc-label),
+  .toc-bar:hover :global(.toc-label) {
     opacity: 1;
     transform: translateY(-50%) translateX(0);
   }
