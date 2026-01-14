@@ -24,5 +24,8 @@
         "nu": {
             "path": "C:\\Program Files\\nu\\bin\\nu.exe"
         }
-    }
+    },
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
 }

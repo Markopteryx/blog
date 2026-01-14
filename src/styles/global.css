@@ -43,7 +43,7 @@ html[data-theme="dark"] {
   }
   body {
     @apply flex min-h-svh flex-col bg-background font-app text-foreground selection:bg-accent/75 selection:text-background;
-    font-family:  "Fira Code";
+    font-family: "Fira Code";
   }
   a,
   button {
