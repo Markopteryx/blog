@@ -83,9 +83,9 @@
   }
 
   #toc-bar :global(.toc-label) {
-    @apply absolute left-4 top-1/2 -translate-y-1/2 -translate-x-1.25 leading-tight text-foreground opacity-0 cursor-pointer w-max max-w-70 whitespace-nowrap bg-background py-1 px-2;
+    @apply absolute left-4 top-1/2 -translate-y-1/2 -translate-x-1.25 leading-tight text-foreground opacity-0 cursor-pointer w-max max-w-70 whitespace-nowrap bg-background px-2;
     font-size: 0.7rem;
-    transition: opacity 200ms ease-in-out, transform 200ms ease-in-out, color 200ms ease-in-out;
+    transition: opacity 700ms ease-out, transform 700ms ease-out, color 200ms ease-in-out;
   }
 
   #toc-bar :global(.toc-label:hover) {
@@ -94,7 +94,8 @@
 
   #toc-hover-zone:hover ~ #toc-bar :global(.toc-label),
   #toc-bar:hover :global(.toc-label) {
-    @apply opacity-100 -translate-y-1/2 translate-x-0;
+    @apply opacity-100 ;
+    transition: opacity 200ms ease-in-out, transform 200ms ease-in-out, color 200ms ease-in-out;
   }
 
   #toc-bar :global(.toc-dot.active .toc-label) {
