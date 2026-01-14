@@ -11,13 +11,15 @@
         "Sanfilippo's",
         "Societally",
         "thiserror",
+        "virtualised",
         "Zitron",
         "Zscript"
     ],
     "cSpell.enabledFileTypes": {
         "typescript": false,
         "javascript": false,
-        "json": false
+        "json": false,
+        "astro": false
     },
     "terminal.integrated.defaultProfile.windows": "nu",
     "terminal.integrated.profiles.windows": {

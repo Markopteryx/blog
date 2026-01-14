@@ -130,25 +130,36 @@ Which leads to the output:
 
 <HeadingLink href="https://fly.io/blog/youre-all-nuts/">You're All Nuts</HeadingLink>
 
-Fly.io's characteristically blunt take on the state of infrastructure tooling. They make a compelling case for why we've overcomplicated deployment pipelines. [HN](https://news.ycombinator.com/item?id=44163063)
+Blog posts from companies are rarely much more than advertising but this article was memorable for me as being the trigger to try AI in a serious way. Prior to this I had been using LLMs in exactly the way the article warns against. Combined with the matter-of-fact style the author uses and a particularly boilerplate-y work week, everything aligned to justify spending some time giving agents a serious go. 
+
+I will have more to say about AI in the future, but here I'll just say that the author wasn't wrong and given a narrow domain and strongly guidelines -- the robot can be genuinely useful for certain tasks. 
 
 <HeadingLink href="https://digitalsociety.coop/posts/migrating-to-hetzner-cloud/">Migrating to Hetzner Cloud</HeadingLink>
 
-A practical guide to moving infrastructure to Hetzner. Includes real cost comparisons with major cloud providers that might surprise you. [HN](https://news.ycombinator.com/item?id=45614922)
+Another article ostensibly from a company, this article is one I have shared more than any other this year and represents thing of a theme of my learning in 2025. The core of the article is how this non-profit coop saved 76% of their cloud bill by moving from AWS to Hetzner. For context at this point I have been using AWS for many year to deploy various services and had generally a positive experience. I knew that certain services (RDS, NAT Gateways) were extremely expensive but just figured that was the cost of business. 
 
-<HeadingLink href="https://pierce.dev/notes/go-ahead-self-host-postgres#user-content-fn-1">Go Ahead Self Host Postgres</HeadingLink>
+The real moment of enlightenment here was using this article and the accompanying comments as a springboard to start to research this in more detail. It quickly became evident that deploying your services on bare metal was not just plausible but thanks to the work of the open source community has become dare I say straightforward. 
 
-Permission granted: self-hosting Postgres isn't as scary as managed database vendors want you to believe. Practical advice for running your own database. [HN](https://news.ycombinator.com/item?id=46336947)
+![Hetzner Server Cost](@/assets/images/2025-reading-hetzner.png)
+
+One of the biggest takeaways I got was the increased performance possible when running on bare metal. Once you stop running everything through virtualized networks the performance of modern hardware is allowed to shine through. Running something a Postgres database on a dedicated server with NVMe storage and 128GB of RAM is a completely different experience to running on a t3.medium instance with EBS storage. There is so much more to say about this topic but for now I'll just say that if you are running any non-trivial workloads on AWS or GCP you owe it to yourself to at least investigate the alternatives. Some useful links to get you started:
+
+- [Go Ahead Self Host Postgres](https://pierce.dev/notes/go-ahead-self-host-postgres#user-content-fn-1)
+- [Reclaim Hardware Bonus from the Cloud](https://vonng.com/en/cloud/bonus/)
+- [Migrating from AWS to a European Cloud](https://www.hopsworks.ai/post/migrating-from-aws-to-a-european-cloud-how-we-cut-costs-by-62)
+- [AWS and Azure are at least 4x-10x more expensive than Hetzner](https://learn.umh.app/blog/aws-and-azure-are-at-least-4x-10x-more-expensive-than-hetzner/)
 
 <HeadingLink href="https://www.inkandswitch.com/essay/local-first/">Local First</HeadingLink>
 
-Ink & Switch's manifesto for local-first software. Makes a compelling case for keeping data on user devices while still enabling collaboration. [HN](https://news.ycombinator.com/item?id=44473135). A great article talking about the practical implementation is [here](https://kerkour.com/rust-crdt)
+Ink & Switch's manifesto for local-first software. A bit old now but I only discovered it this year. The theme is that real-time collaboration tools should prioritize local data ownership and offline-first experiences. Exquisitely written and thoroughly researched, the Ink & Switch team show that there is a place for open research in the software space. The article goes through a variable of different kinds of applications and compares them on the metrics of performance, collaboration, privacy and user control. Disappointingly, even six years later most applications fail to improve measurably on these axes. 
+
+The key tech at the heart of local-first software are CRDTs (Conflict-free Replicated Data Types) which allow multiple users to edit the same data concurrently without conflicts. CRDT's work by ensuring that all operations are commutative, associative, and idempotent, allowing changes to be merged in any order without conflicts. A great article talking about the practical implementation in Rust is [here](https://kerkour.com/rust-crdt).
 
 ### Software Engineering Craft
 
 <HeadingLink href="https://www.makingsoftware.com/">Making Software</HeadingLink>
 
-An excellent resource on the craft of building software. It covers everything from first principles to practical techniques that make codebases more maintainable over time.
+This website is a work of art. Here Dan attempts to explain basically everything about how computers work. If you are interested in the low-level details of how computers work then its worth the visit. The project is new and only a few chapters have been written yet and I believe some parts of it will be paid in the future but its worth bookmarking for future reference.
 
 <HeadingLink href="https://boydkane.com/essays/experts">Experts Have It Easy</HeadingLink>
 
