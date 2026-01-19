@@ -9,7 +9,9 @@ tags:
 
 import HeadingLink from "@/components/HeadingLink.astro";
 
-I have always been a voracious reader, but like many people I haven't really sat down and read a book for a few years. However, I've always felt the urge to read _something_ and have constantly consumed various articles, blogs, posts and really anything I could get my eyes on. I started to feel though as I was reading a lot and remembering no enough. So at the start of 2025, I started a new job that had a longer public transport commute -- as a consequence, I started reading HackerNews articles on the train and started getting exposed to some wonderful writers and their ideas. These are the some of the best things I found:
+I have always been a voracious reader, but like many people I haven't really sat down and read a book for a few years. However, I've always felt the urge to read _something_ and to this end have constantly consumed articles, blogs, posts and really anything I could get my eyes on. I started to feel as even thought I was reading a lot, I was not remembering enough. So at the start of 2025, I decided it wasn't enought to simply passively consume this content but I wanted to engage with it. At the same time, beyond documentation I felt as thought my writing skills had no improved in a very long time. So I started to keep a list of interesting things I had read and then do an end of year review.
+
+By the end of 2025, I had read roughly 1,200 articles and here is my attempt to distel down to the 20 or so that really resontated with me. Note, these represent things I _found_ in 2025, and since everyone is part of the [ten thousand](https://xkcd.com/1053/) sometimes I hope you find something interesting as well. I try to avoid offering simple summaries here of the findings and I strongly recommend reading the linked material. Finally, none of my writings contain any AI changes as I want to find my own writing style, not converge to the mean defined my a model.
 
 <HeadingLink href="https://www.wheresyoured.at/the-rot-economy/">The Rot Economy</HeadingLink>
 
@@ -172,7 +174,33 @@ This article isn't transformative, but it reminds me to extend the same humility
 
 <HeadingLink href="https://minds.md/zakirullin/cognitive">Cognitive</HeadingLink>
 
-A collection of insights on cognitive load in software development. Practical advice on reducing mental overhead when working with complex codebases. [HN](https://news.ycombinator.com/item?id=45074248)
+Complexity and code design is a fan favourite of many software engineers and the advice in this domain is old, vast and often at odds with each other. This article does a good job to give a high level overview of this topic through the lens of cognitive load. We all have an intuitive understanding of cognitive load, its that feeling in as you read someones code and _feel_ something is wrong, this is too many moving parts, this shouldn't be this hard. These thoughts are what cause us to say that this code is poorly written.
+
+Artem here suggests some straightforward practical advice, like collapsing complex conditionals:
+
+```rust
+if val > SOME_CONSTANT // 🧠+
+    && (condition2 || condition3) // 🧠+++, prev cond should be true, one of c2 or c3 has to be true
+    && (condition4 && !condition5) { // 🤯, we are messed up by this point
+    // ...
+}
+```
+
+can be simplified too:
+
+```rust
+let is_valid = val > SOME_CONSTANT;
+let is_allowed = condition2 || condition3;
+let is_secure = condition4 && !condition5;
+// 🧠, we don't need to remember the conditions, there are descriptive variables
+if is_valid && is_allowed && is_secure {
+    // ...
+}
+```
+
+The part that really resonated with me however was the section on inheritance nightmares. Defined as having to navigate through the class tree many levels just to determine how to change a single variable. This really hit home as in my past I still vividly recall one of my first takes being to change the variables on a graph and what should have been a quick task (even if I had no familiarity with the codebase) turned into a whole day affair as I have to grapple with almost the entire system to understand the data flow. 
+
+This is why I advocate for a simple procedural coding style. It is worth pointing out that writing code that imposes low cognitive load onto other engineers is not a trivial task. Everyone's definition of _hard_ is different and changes over time. Nonetheless, it is a skill worth the discipline to cultivate. 
 
 <HeadingLink href="https://www.seangoedecke.com/good-system-design/">Good System Design</HeadingLink>
 
