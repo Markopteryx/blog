@@ -1,32 +1,88 @@
 ---
 title: Best things I read in 2025
 description: Interesting or unique things I read in 2025
-pubDatetime: 2026-01-03T00:00:00Z
+pubDatetime: 2026-01-18T00:00:00Z
 draft: false
 tags:
   - reading
+  - reviews
 ---
 
 import HeadingLink from "@/components/HeadingLink.astro";
 
-I have always been a voracious reader, but like many people I haven't really sat down and read a book for a few years. However, I've always felt the urge to read _something_ and to this end have constantly consumed articles, blogs, posts and really anything I could get my eyes on. I started to feel as even thought I was reading a lot, I was not remembering enough. So at the start of 2025, I decided it wasn't enough to simply passively consume this content but I wanted to engage with it. At the same time, beyond documentation I felt as thought my writing skills had no improved in a very long time. So I started to keep a list of interesting things I had read and then do an end of year review.
+I have always been a voracious reader, but like many people I haven't really sat down and read a book for a few years. However, I've always felt the urge to read _something_ and to this end have constantly consumed articles, blogs, posts and really anything I could get my eyes on.I started to feel as though even though I was reading a lot, I was not remembering enough. So at the start of 2025, I decided it wasn't enough to simply passively consume this content but I wanted to engage with it. At the same time, beyond documentation I felt as though my writing skills had not improved in a very long time. So I started to keep a list of interesting things I had read and then do an end of year review.
 
-By the end of 2025, I had read roughly 1,200 articles and here is my attempt to distil down to the 20 or so that really resonated with me. Note, these represent things I _found_ in 2025, and since everyone is part of the [ten thousand](https://xkcd.com/1053/) sometimes I hope you find something interesting as well. I try to avoid offering simple summaries here of the findings and I strongly recommend reading the linked material. Finally, none of my writings contain any AI changes as I want to find my own writing style, not converge to the mean defined my a model.
+By the end of 2025, I had read roughly 1,200 articles and here is my attempt to distill down to the 20 or so that really resonated with me. Note, these represent things I _found_ in 2025, and since everyone is part of the [ten thousand](https://xkcd.com/1053/) sometimes I hope you find something interesting as well. I try to avoid offering simple summaries here of the findings and I strongly recommend reading the linked material. Finally, none of my writing contains AI changes as I want to find my own writing style, not converge to the mean defined by a model.
 
-<HeadingLink href="https://www.wheresyoured.at/the-rot-economy/">The Rot Economy</HeadingLink>
+### Software Engineering and Craft
 
-I discovered this piece on January 2nd. Despite being written in early 2023, it encapsulates Zitron's broader thesis and serves as the foundation for his 2025 work. The crux of the article is that the economy is broken, with both public markets and venture capital being decoupled with what makes business genuinely valuable and the reckless pursuit of 'number go up' only serves to benefit the few at the expense of the many.
+<HeadingLink href="https://www.makingsoftware.com/">Making Software</HeadingLink>
 
-> Societally, have turned our markets and businesses - private and public over to arsonists
+This website is a work of art. Here Dan attempts to explain basically everything about how computers work. If you are interested in the low-level details of how computers work then its worth a visit. The project is new and only a few chapters have been written yet and I believe some parts will be paywalled in the future but its worth bookmarking for future reference.
 
-Zitron doesn't hedge—he calls venture capital "reckless" and growth-obsessed CEOs "arsonists". The article resonates as the past two years of software innovation have felt hollow as we watch tech companies try to justify their obscene AI spend with features nobody asked for.
+<HeadingLink href="https://boydkane.com/essays/experts">Experts Have It Easy</HeadingLink>
 
+Like most people, I am an expert in some domains and a novice in others. Boyd Kane articulates what everyone knows -- _experts are more efficient than novices while achieving better results_. He goes on to paint an interesting story about navigating through a maze in the shoes of a novice and expert respectively. Pointing out that in most new situations novices don't reach for the right tools as they simply aren't aware of them. When my junior engineer is trying to follow the data path through an 
+application, I find dozens of print statements when the debugger could have solved this in less than a minute. They weren't being stubborn or lazy—as Kane observes: 
 
-### Rust & Systems Programming
+> the novice didn't even know there was a decision in the first place
+
+This article isn't transformative, but it reminds me to extend the same patience to others that I'd appreciate when doing something new. It's easy to forget the confusion and uncertainty of being a novice once you've internalized the expert's toolkit. The junior engineer with print statements scattered everywhere isn't making poor choices—they're making the best choice available to them with their current mental model. My job isn't to judge their approach, but to help them see the decisions they didn't know existed.
+
+<HeadingLink href="https://minds.md/zakirullin/cognitive">Cognitive</HeadingLink>
+
+Complexity and code design is a fan favourite of many software engineers and the advice in this domain is old, vast and often at odds with each other. This article does a good job to give a high level overview of this topic through the lens of cognitive load. We all have an intuitive understanding of cognitive load, its that feeling in as you read someones code and _feel_ something is wrong, this is too many moving parts, this shouldn't be this hard. These thoughts cause us to say that this code is poorly written.
+
+Artem here suggests some straightforward practical advice, like collapsing complex conditionals:
+
+```rust
+if val > SOME_CONSTANT // 🧠+
+    && (condition2 || condition3) // 🧠+++, prev cond should be true, one of c2 or c3 has to be true
+    && (condition4 && !condition5) { // 🤯, we are messed up by this point
+    // ...
+}
+```
+
+can be simplified too:
+
+```rust
+let is_valid = val > SOME_CONSTANT;
+let is_allowed = condition2 || condition3;
+let is_secure = condition4 && !condition5;
+// 🧠, we don't need to remember the conditions, there are descriptive variables
+if is_valid && is_allowed && is_secure {
+    // ...
+}
+```
+
+The part that really resonated with me however was the section on inheritance nightmares. Defined as having to navigate through the class tree many levels just to determine how to change a single variable. This really hit home as in my past I still vividly recall one of my first tasks being to change the variables on a graph and what should have been a quick task (even if I had no familiarity with the codebase) turned into a whole day affair as I have to grapple with almost the entire system to understand the data flow. 
+
+This is why I advocate for a simple procedural coding style. It is worth pointing out that writing code that imposes low cognitive load onto other engineers is not a trivial task. Everyone's definition of _hard_ is different and changes over time. Nonetheless, it is a skill worth the discipline to cultivate. 
+
+<HeadingLink href="https://chriskiehl.com/article/thoughts-after-10-years">Thoughts After 10 Years</HeadingLink>
+
+Simply a checklist of Chris' opinions on software engineering, I am not immune to the power of a statement said confidently. I don't agree with everything Chris says (sometimes things are intractably complex), the general sentiment here is worth having a look over. Pieces like this always remind me of the statement "strong opinions, loosely held" -- in that over time I think software engineers _should_ acquire strong opinions but dogmatic adherence to these opinions is where the problem starts. 
+
+<HeadingLink href="https://endler.dev/2025/best-programmers/">Best Programmers</HeadingLink>
+
+Matthias is probably the engineer I listen to the most, in that he hosts the fantastic [Rust in Production Podcast](https://corrode.dev/podcast/) which I am big fan off. Known for his work in the Rust space, his company Corrode always maintains a blog about Rust. I find I align strongly with most opinions Matthias holds and is someone I have learnt a lot from. Here, he discusses the general features of competent engineers and here, I want to focus on one in particular -- Know Your Tools Really Well. 
+
+Git, shells, IDEs, file formats, the scope of the things a software engineer is supposed to know is essentially infinite and constantly growing. However, some things are more immutable than others and to this end I would strongly recommend mastery of a single tool -- your keyboard. If you have ever watched someone use emacs or vim you will have surely seen someones hands flying across the keyboard. A lifelong goal of mine is improving my proficiency with my keyboard, one that I have slowly improving over time. I don't think its outlandish to say we should control our keyboards the way a pianist plays the piano. 
+
+<HeadingLink href="https://www.catherinejue.com/fast">Fast</HeadingLink>
+
+Fast is fun. Catherine is right. Things should be fast and they are not. What is there even to say here, no one would argue software should be slower and so I want to just take a moment to point out some software that is actually fast. 
+
+- [FilePilot](https://filepilot.tech/) - Made by a single engineer, this Windows Explorer replacement is better by every conceivable metric and is fast as fuck. 
+- [Zed](https://zed.dev/) - My IDE of choice, loads quickly, doesn't struggle with large files and recently released on Windows as well.
+
+A related article that I suggest reading here is [But what if I really want a faster horse?](https://rakhim.exotext.com/but-what-if-i-really-want-a-faster-horse).
+
+### Languages and Systems
 
 <HeadingLink href="https://jyn.dev/the-core-of-rust/">The Core of Rust</HeadingLink>
 
-Rust is my favorite language and one I took a long time to learn. That was for a few reasons, at the time my background was in JS/Python and thus I was not exposed to many of Rust's language features; I was trying to learn lots of other things at the same time; and finally because _Rust is just hard_. This article does a fantastic job explaining why. To begin writing even simple programs in Rust requires knowledge of many different concepts and this is shown in the form of an example of a simple program in Rust and JavaScript. 
+Rust is my favourite language and one I took a long time to learn for several reasons, at the time my background was in JS/Python and thus I was not exposed to many of Rust's language features; I was trying to learn lots of other things at the same time; and finally because _Rust is genuinely difficult_. This article does a fantastic job explaining why. To begin writing even simple programs in Rust requires knowledge of many different concepts and this is shown in the form of an example of a simple program in Rust and JavaScript. 
 
 ```rs
 #!/usr/bin/env -S cargo -Zscript
@@ -54,7 +110,7 @@ fn main() -> Result<(), notify::Error> {
     loop { std::thread::park(); } // sleep forever
 }
 ```
-This Rust program requires understanding enums, pattern matching, traits, the borrow checker, iterators, closures and Rust's particular brand of error handling. The JavaScript equivalent needs far fewer concepts to achieve the same result. 
+This Rust program requires understanding of enums, pattern matching, traits, the borrow checker, iterators, closures and Rust's particular brand of error handling. The JavaScript equivalent needs far fewer concepts to achieve the same result. 
 
 ```js
 const fs = require('fs');
@@ -75,13 +131,13 @@ Also, and the reason this article was memorable to me is the `#!/usr/bin/env -S 
 
 <HeadingLink href="https://matklad.github.io/2025/12/29/second-error-model-convergence.html">Second Error Model Convergence</HeadingLink>
 
-Alex's writings are consistently some of my favourites and this piece, released at the very end of the year is no _exception_. Here, he builds up on the work of Joe Duffy's [Error Model](https://joeduffyblog.com/2016/02/07/the-error-model/#recoverable-errors-type-directed-exceptions) and states that most modern languages have converged to the similar error-handling semantics. Somewhat strangely I've always enjoyed reasoning about all the ways code can fail and its great to see error handling get the discussion it warrants. 
+Alex's writings are consistently some of my favourites and this piece, released at the very end of the year is no _exception_. Here, he builds up on the work of Joe Duffy's [Error Model](https://joeduffyblog.com/2016/02/07/the-error-model/#recoverable-errors-type-directed-exceptions) and states that most modern languages have converged on similar error-handling semantics. Somewhat strangely I've always enjoyed reasoning about all the ways code can fail and its great to see error handling get the discussion it warrants. 
 
 Modern languages like Rust, Go, Swift, and Zig share three key traits that distinguish them from the exception-based model of Java/Python/JS: errors are marked at call sites (the `?` in Rust), bugs trigger panics rather than catchable exceptions, and errors are first-class values (Result\<T,E>) rather than side channels
 
-Not surprisingly then, it was natural for me to find joy in Rust's errors as value construction. Having watched many people now learn Rust however; you do learn that some engineers really don't want to deal with errors and those coming from languages with unchecked exceptions can struggle with the verbosity demanded by Rust. I think a lot of this is a reflection of the style of programs typically written in something like Python vs. Rust. 
+Not surprisingly then, it was natural for me to find joy in Rust's errors-as-values construction. Having watched many people now learn Rust however; you learn that some engineers really don't want to deal with errors and those coming from languages with unchecked exceptions can struggle with the verbosity demanded by Rust. I think a lot of this is a reflection of the style of programs typically written in something like Python vs. Rust. 
 
-Unlike higher-level languages the Rust error handling story is still evolving and while the `anyhow` and `thiserror` crates are extremely popular they are far from all-encompassing. Recently I stumbled upon the [rootcause](https://github.com/rootcause-rs/rootcause) crate, which attempts to build rich, structured errors capturing the entire history of an execution failure. 
+Unlike higher-level languages, the Rust error handling story is still evolving and while the `anyhow` and `thiserror` crates are extremely popular they are far from all-encompassing. Recently I stumbled upon the [rootcause](https://github.com/rootcause-rs/rootcause) crate, which builds rich, structured errors capturing the entire history of an execution failure. 
 
 ```rust
 use rootcause::prelude::*;
@@ -128,23 +184,25 @@ Which leads to the output:
  ╰ examples/basic.rs:34:19
 ```
 
-### Infrastructure & DevOps
+### Infrastructure and Economics
 
-<HeadingLink href="https://fly.io/blog/youre-all-nuts/">You're All Nuts</HeadingLink>
+<HeadingLink href="https://www.wheresyoured.at/the-rot-economy/">The Rot Economy</HeadingLink>
 
-Blog posts from companies are rarely much more than advertising but this article was memorable for me as being the trigger to try AI in a serious way. Prior to this I had been using LLMs in exactly the way the article warns against. Combined with the matter-of-fact style the author uses and a particularly boilerplate-y work week, everything aligned to justify spending some time giving agents a serious go. 
+I discovered this piece on January 2nd. Though written in early 2023, it still encapsulates Zitron's broader thesis and serves as the foundation for his 2025 work. The crux of the article is that the economy is broken, with both public markets and venture capital being decoupled with what makes business genuinely valuable and the reckless pursuit of 'number go up' serves only to benefit the few at the expense of the many.
 
-I will have more to say about AI in the future, but here I'll just say that the author wasn't wrong and given a narrow domain and strongly guidelines -- the robot can be genuinely useful for certain tasks. 
+> Societally, we have turned our markets and businesses - private and public over to arsonists
+
+Zitron doesn't hedge—he calls venture capital "reckless" and growth-obsessed CEOs "arsonists". The article resonates because the past two years of software innovation have felt hollow as we watch tech companies try to justify their obscene AI spend with features nobody asked for.
 
 <HeadingLink href="https://digitalsociety.coop/posts/migrating-to-hetzner-cloud/">Migrating to Hetzner Cloud</HeadingLink>
 
-Another article ostensibly from a company, this article is one I have shared more than any other this year and represents thing of a theme of my learning in 2025. The core of the article is how this non-profit coop saved 76% of their cloud bill by moving from AWS to Hetzner. For context at this point I have been using AWS for many year to deploy various services and had generally a positive experience. I knew that certain services (RDS, NAT Gateways) were extremely expensive but just figured that was the cost of business. 
+Another article ostensibly from a company, this article is one I have shared more than any other this year and represents a bit of a theme in my learning in 2025. The core of the article is how this non-profit coop saved 76% of their cloud bill by moving from AWS to Hetzner. For context at this point I have been using AWS for many year to deploy various services and generally had a positive experience. I knew that certain services (RDS, NAT Gateways) were extremely expensive but just figured that was the cost of business. 
 
-The real moment of enlightenment here was using this article and the accompanying comments as a springboard to start to research this in more detail. It quickly became evident that deploying your services on bare metal was not just plausible but thanks to the work of the open source community has become dare I say straightforward. 
+The real moment of enlightenment here was using this article and the accompanying comments as a springboard to start to research this in more detail. It quickly became evident that deploying your services on bare metal was not just plausible but thanks to the work of the open source community has become dare I say, straightforward. 
 
 ![Hetzner Server Cost](@/assets/images/2025-reading-hetzner.png)
 
-One of the biggest takeaways I got was the increased performance possible when running on bare metal. Once you stop running everything through virtualized networks the performance of modern hardware is allowed to shine through. Running something a Postgres database on a dedicated server with NVMe storage and 128GB of RAM is a completely different experience to running on a t3.medium instance with EBS storage. There is so much more to say about this topic but for now I'll just say that if you are running any non-trivial workloads on AWS or GCP you owe it to yourself to at least investigate the alternatives. Some useful links to get you started:
+One of the biggest takeaways I got was the increased performance possible when running on bare metal. Once you stop running everything through virtualized networks the performance of modern hardware is allowed to shine through. Running a Postgres database on a dedicated server with NVMe storage and 128GB of RAM is a completely different experience to running on a t3.medium instance with EBS storage. There is so much more to say about this topic but for now I'll just say that if you are running any non-trivial workloads on AWS or GCP you owe it to yourself to at least investigate the alternatives. Some useful links to get you started:
 
 - [Go Ahead Self Host Postgres](https://pierce.dev/notes/go-ahead-self-host-postgres#user-content-fn-1)
 - [Reclaim Hardware Bonus from the Cloud](https://vonng.com/en/cloud/bonus/)
@@ -153,125 +211,71 @@ One of the biggest takeaways I got was the increased performance possible when r
 
 <HeadingLink href="https://www.inkandswitch.com/essay/local-first/">Local First</HeadingLink>
 
-Ink & Switch's manifesto for local-first software. A bit old now but I only discovered it this year. The theme is that real-time collaboration tools should prioritize local data ownership and offline-first experiences. Exquisitely written and thoroughly researched, the Ink & Switch team show that there is a place for open research in the software space. The article goes through a variable of different kinds of applications and compares them on the metrics of performance, collaboration, privacy and user control. Disappointingly, even six years later most applications fail to improve measurably on these axes. 
+Ink & Switch's manifesto for local-first software. A bit old now but I only discovered it this year. The theme is that real-time collaboration tools should prioritize local data ownership and offline-first experiences. Exquisitely written and thoroughly researched, the Ink & Switch team show that there is a place for open research in the software space. The article goes through a variety of different kinds of applications and compares them on the metrics of performance, collaboration, privacy and user control. Disappointingly, even six years later most applications fail to improve measurably on these axes. 
 
 The key tech at the heart of local-first software are CRDTs (Conflict-free Replicated Data Types) which allow multiple users to edit the same data concurrently without conflicts. CRDT's work by ensuring that all operations are commutative, associative, and idempotent, allowing changes to be merged in any order without conflicts. A great article talking about the practical implementation in Rust is [here](https://kerkour.com/rust-crdt).
 
-### Software Engineering Craft
 
-<HeadingLink href="https://www.makingsoftware.com/">Making Software</HeadingLink>
+### Developer Experience and Tools
 
-This website is a work of art. Here Dan attempts to explain basically everything about how computers work. If you are interested in the low-level details of how computers work then its worth the visit. The project is new and only a few chapters have been written yet and I believe some parts of it will be paid in the future but its worth bookmarking for future reference.
+<HeadingLink href="https://fly.io/blog/youre-all-nuts/">You're All Nuts</HeadingLink>
 
-<HeadingLink href="https://boydkane.com/essays/experts">Experts Have It Easy</HeadingLink>
+Blog posts from companies are rarely more than advertising but this article was memorable for me as being the trigger to try AI in a serious way. Prior to this I had been using LLMs in exactly the way the article warns against. Combined with the matter-of-fact style the author uses and a particularly boilerplate-heavy work week, everything aligned to justify spending some time giving agents a serious go. 
 
-Like most people, I am an expert in some domains and a novice in others. Boyd Kane articulates what everyone knows -- _experts are more efficient than novices while achieving better results_. He goes on to paint an interesting story about navigating through a maze in the shoes of a novice and expert respectively. Pointing out that in most new situations novices don't reach for the right tools as they simply aren't aware of them. When my junior engineer is trying to follow the data path through an 
-application, I come over to see dozens of print statements when the debugger could have solved this in less than a minute. They weren't being stubborn or lazy—as Kane observes: 
-
-> the novice didn't even know there was a decision in the first place
-
-This article isn't transformative, but it reminds me to extend the same humility to others as I would like shown to myself when doing something new. It's easy to forget the confusion and uncertainty of being a novice once you've internalized the expert's toolkit. The junior engineer with print statements scattered everywhere isn't making poor choices—they're making the best choice available to them with their current mental model. My job isn't to judge their approach, but to help them see the decisions they didn't know existed.
-
-<HeadingLink href="https://minds.md/zakirullin/cognitive">Cognitive</HeadingLink>
-
-Complexity and code design is a fan favourite of many software engineers and the advice in this domain is old, vast and often at odds with each other. This article does a good job to give a high level overview of this topic through the lens of cognitive load. We all have an intuitive understanding of cognitive load, its that feeling in as you read someones code and _feel_ something is wrong, this is too many moving parts, this shouldn't be this hard. These thoughts are what cause us to say that this code is poorly written.
-
-Artem here suggests some straightforward practical advice, like collapsing complex conditionals:
-
-```rust
-if val > SOME_CONSTANT // 🧠+
-    && (condition2 || condition3) // 🧠+++, prev cond should be true, one of c2 or c3 has to be true
-    && (condition4 && !condition5) { // 🤯, we are messed up by this point
-    // ...
-}
-```
-
-can be simplified too:
-
-```rust
-let is_valid = val > SOME_CONSTANT;
-let is_allowed = condition2 || condition3;
-let is_secure = condition4 && !condition5;
-// 🧠, we don't need to remember the conditions, there are descriptive variables
-if is_valid && is_allowed && is_secure {
-    // ...
-}
-```
-
-The part that really resonated with me however was the section on inheritance nightmares. Defined as having to navigate through the class tree many levels just to determine how to change a single variable. This really hit home as in my past I still vividly recall one of my first takes being to change the variables on a graph and what should have been a quick task (even if I had no familiarity with the codebase) turned into a whole day affair as I have to grapple with almost the entire system to understand the data flow. 
-
-This is why I advocate for a simple procedural coding style. It is worth pointing out that writing code that imposes low cognitive load onto other engineers is not a trivial task. Everyone's definition of _hard_ is different and changes over time. Nonetheless, it is a skill worth the discipline to cultivate. 
-
-### Career & Developer Life
-
-<HeadingLink href="https://chriskiehl.com/article/thoughts-after-10-years">Thoughts After 10 Years</HeadingLink>
-
-Reflections on a decade in software development. The author shares lessons learned and how their perspective has evolved over time. [HN](https://news.ycombinator.com/item?id=42946281)
-
-<HeadingLink href="https://endler.dev/2025/best-programmers/">Best Programmers</HeadingLink>
-
-An analysis of what separates great programmers from good ones. The traits identified go beyond technical skill to include communication and empathy. [HN](https://news.ycombinator.com/item?id=43629307)
-
-<HeadingLink href="https://www.jeetmehta.com/posts/thrive-in-obscurity">Thrive in Obscurity</HeadingLink>
-
-A case for building quietly without chasing visibility. The author argues that obscurity can be a competitive advantage for focused work. [HN](https://news.ycombinator.com/item?id=44155746)
-
-<HeadingLink href="https://grantslatton.com/nobody-cares">Nobody Cares</HeadingLink>
-
-A liberating reminder that most of our anxieties about public perception are overblown. The author encourages shipping work without worrying about judgment. [HN](https://news.ycombinator.com/item?id=42707238)
-
-### Tools & Developer Experience
-
-<HeadingLink href="https://emily.space/posts/251023-uv">UV</HeadingLink>
-
-A review of Astral's UV package manager for Python. The speed improvements over pip are remarkable, and the author explains why this matters for developer experience. [HN](https://news.ycombinator.com/item?id=45751400)
+I will have more to say about AI in the future, but here I'll just say that the author wasn't wrong and given a narrow domain and strong guidelines -- the robot can be genuinely useful for certain tasks. 
 
 <HeadingLink href="https://polotek.net/posts/the-frontend-treadmill/">The Frontend Treadmill</HeadingLink>
 
-A critique of the constant churn in frontend development. The author examines why we keep reinventing the same patterns with new frameworks. [HN](https://news.ycombinator.com/item?id=43422162)
+This must have been the tenth one of these I read in 2025 and this one says the most in the fewest words. Ultimately, we all know something is kind of strange about frontend frameworks and the advice here is just generally applicable. Learn the basics, keep the abstractions low and realise no matter what choice you make, it likely won't matter. 
+I think at this point it was four years ago I used my first frontend "framework", having used raw React prior to that. Since then I have tried NextJS, Astro, Tanstack and even Dioxus in the Rust world. To me at least, these are all surprisingly similar, with more in common than they have apart and part of me wishes I had spent more time learning HTML and CSS as I still rely a lot on LLMs now to write CSS. 
+
 
 <HeadingLink href="https://dynomight.net/numpy/">NumPy</HeadingLink>
 
-A surprisingly entertaining piece about NumPy's design decisions and quirks. The author manages to make array broadcasting genuinely interesting to read about.
+> They say you can’t truly hate someone unless you loved them first.
 
-### Graphics & Game Dev
+The opening sentence of this wonderful piece about `NumPy`, the core computing library in the Python ecosystem. Almost every library that does array operations in Python uses NumPy or is inspired by it. I have used it myself more many years and _generally_ had a fine experience. I credit this to never really having to do anything more complicated than standard undergraduate physics linear algebra. However I have not had to use it seriously for at least eight years and I think that is colouring my opinions.
+
+The author here however is much more familiar and this article goes over the idea that NumPy's biggest issue is its lack of clarity and that after many years of using it, writing incorrect code is still extremely easy. I actually think this is often the case with older Python libraries, especially ones based around array manipulation. The early libraries coming out around this time were really built to get the job done and were often made by people who needed them for a specific use case and no general purpose libraries. 
+
+### Career and Philosophy
+
+<HeadingLink href="https://www.jeetmehta.com/posts/thrive-in-obscurity">Thrive in Obscurity</HeadingLink>
+
+A simple reminder to just keep going. This blog, like most, I assume no one will ever read but I am writing it for me. I want to become a stronger writer, with more focused thoughts. This short essay makes it clear this effort can take years and can only ever been rewarding if the effort itself is rewarding. The way I see it, if I spend years writing stuff no one reads, if it makes me happy what is the difference. 
+
+<HeadingLink href="https://grantslatton.com/nobody-cares">Nobody Cares</HeadingLink>
+
+Few things in life are a cathartic as a good rant and here we have a good one. It's made even better as it spends devotes a sizable portion complaining about city design (one of my personal triggers). The premise is simple, if people cared a little bit more than the world would be a better place. This logic is hard to find fault with of course and the better question is why do people _not_ care. The author is from America and while not America or from there myself, as an external observer it seems like the average American has much bigger problems in their day to day lives to give a shit about anything other than surviving.
+
+I am extremely fortunate to work at company that does genuinely seem to give a shit. Clients call up our CEO and we aim to have fixes within a few hours. We focus a lot on getting the numbers right when getting them wrong would be a lot easier. Here, I permit myself to name a single entity that doesn't care -- The Australian Bureau of Meteorology.
+
+### Misc
 
 <HeadingLink href="https://www.sebastianaaltonen.com/blog/no-graphics-api">No Graphics API</HeadingLink>
 
-A radical rethinking of how we should interface with GPUs. The author proposes simplifications that could make graphics programming more accessible. [HN](https://news.ycombinator.com/item?id=46293062)
-
-### Philosophy & Thinking
-
-<HeadingLink href="https://www.catherinejue.com/fast">Fast</HeadingLink>
-
-A meditation on speed in software and life. The author explores why we're obsessed with making things faster and whether that's always the right goal. [HN](https://news.ycombinator.com/item?id=44736967)
-
-<HeadingLink href="https://rakhim.exotext.com/but-what-if-i-really-want-a-faster-horse">But What If I Really Want a Faster Horse</HeadingLink>
-
-A contrarian take on the famous Ford quote. Sometimes users know exactly what they want, and innovation isn't always the answer to every problem. [HN](https://news.ycombinator.com/item?id=43652723)
-
-### Creative & Misc
+The hardest read of the entire year and honestly the reason its one this list. Sebastian is without a doubt an expert in his domain, here that being graphics APIs. I think I only understood about 50% of this article and that might be generous. It gives an exhaustive overview of the current graphics APIs and argues they are not fit for purpose. The biggest issue is complexity and the time it takes to create, distribute and use APIs. The real reason I wanted to briefly discuss this article was that its rare to see such deep technical insight outside formal documentation and Sebastian has done a terrific job.
 
 <HeadingLink href="https://fellerts.no/projects/epoch.html">Epoch</HeadingLink>
 
-A fascinating project exploring time representation in computing. The visualizations help you understand just how arbitrary our timestamp conventions really are. [HN](https://news.ycombinator.com/item?id=44347425)
+Do I own a mechanical watch, sadly no. Have I ever expressed any interest in mechanic watches, not a single iota. Did I read every word? Yes. Part of the reason was that in the first sentence he mentions [Bartosz Ciechanowski's mechanical watch article](https://ciechanow.ski/mechanical-watch/), which significantly extended my reading time. 
+
+Interjection here, if you have not read any of Bartosz's articles, I suggest you stop reading here and go find out that interests you. You are in for a treat.
+
+Fredrik then takes the work of Bartosz and extends it into the real world, spending considering time and effort trying to recreate the effect in the real world. Both pieces of writing are phenomenal and the effort behind both of them must have been tremendous. 
 
 <HeadingLink href="https://sethpurcell.com/writing/screens-in-museums/">Screens in Museums</HeadingLink>
 
-A critique of how museums have embraced digital displays at the expense of direct engagement with artifacts. Makes you think about the role of technology in cultural spaces. [HN](https://news.ycombinator.com/item?id=45199931)
+I don't have kids but this post still interested me. When I was a young kid I was very poor and spent a considerable amount of time in libraries reading books. But, every now and then my school would take us to the local museum and I'd get to touch fossils and look at all the strange things humans had done. Here, Seth states he didn't bring his son to the Franklin Institute in Philadelphia to look at screens. The thing I actually remember most about this article is one of the comments in the HN thread about it, [here](https://news.ycombinator.com/item?id=45201476), user `kleiba` tells us about the insane pressure public facing endeavours (schools and museums) have to add digital something to their overall experience.
 
-<HeadingLink href="https://sharif.io/anna-alexei">Anna Alexei</HeadingLink>
-
-A beautifully written piece that blends personal narrative with technical insight. The storytelling approach makes complex ideas more accessible and memorable. [HN](https://news.ycombinator.com/item?id=45348495)
-
-<HeadingLink href="https://blog.meca.sh/3lxoty3shjc2z?auth_completed=true">Blog Post</HeadingLink>
-A thought-provoking piece that challenges conventional wisdom about software architecture. Worth reading for the contrarian perspective alone. [HN](https://news.ycombinator.com/item?id=45099922)
-
-
-## Just Useful
+## Just Good
 
 In my adventures I stumble upon many great things but not everything is strictly fantastic prose (I sure am not), or life-altering but sometimes things are just useful and this list captures those
 
 - [Learn Bevy](https://aibodh.com/posts/bevy-rust-game-development-chapter-1/) -> It can be _really_ hard to learn Bevy as its a rapidly changing project and so often the docs are out of date and ECS isn't something everyone knows. This fantastic piece gives a multi-part tutorial, skipping none of the details
 
 - [Everything I know about good system design](https://www.seangoedecke.com/good-system-design/) -> A fantastic, high-level look into system design with extremely pragmatic advice. If you work on backends make sure you know all of this.
+
+- [uv is the best thing to happen to the Python ecosystem in a decade](https://emily.space/posts/251023-uv) -> Couldn't agree more. As someone who entered software engineering though the data science and physics worlds, Python has a chokehold in certain domains of programming that is hard to imagine going away. I found `uv` a little bit after it was released as I was already using `ruff` and it really has from an enjoyment point-of-view made Python much more tolerable. If you are using Python in any way, please check this out.
+
+- [Always invite Anna](https://sharif.io/anna-alexei) -> A short piece about human connection and why inclusion matters.

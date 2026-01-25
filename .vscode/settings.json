@@ -1,9 +1,16 @@
 {
     "cSpell.words": [
         "Antirez",
+        "Bartosz",
         "catchable",
+        "chokehold",
+        "Ciechanowski's",
         "CRDT",
+        "Dioxus",
         "favourites",
+        "Fredrik",
+        "Fredrik's",
+        "kleiba",
         "Marko",
         "markopteryx",
         "Matklad's",
@@ -21,6 +28,7 @@
         "json": false,
         "astro": false
     },
+    "cSpell.language": "en,en-AU",
     "terminal.integrated.defaultProfile.windows": "nu",
     "terminal.integrated.profiles.windows": {
         "nu": {
