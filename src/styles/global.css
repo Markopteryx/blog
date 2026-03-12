@@ -11,6 +11,7 @@ html[data-theme="light"] {
   --highlight: #5a8fe8;
   --muted: #bbc789;
   --border: #7cadff;
+  --code-bg: #ffffff;
 }
 
 html[data-theme="dark"] {
@@ -20,6 +21,7 @@ html[data-theme="dark"] {
   --highlight: #fe8019;
   --muted: #504945;
   --border: #d65d0e;
+  --code-bg: #011627;
 }
 
 @theme inline {
@@ -30,6 +32,7 @@ html[data-theme="dark"] {
   --color-highlight: var(--highlight);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-code-bg: var(--code-bg);
 }
 
 @layer base {
@@ -51,6 +54,38 @@ html[data-theme="dark"] {
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
+  }
+
+  .info-box {
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem 1.25rem 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--border);
+    background: var(--code-bg);
+  }
+
+  .info-box-label {
+    position: absolute;
+    left: 0.75rem;
+    top: -0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--border);
+    background: var(--background);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1rem;
+    color: var(--accent);
+  }
+
+  .info-box-content > *:first-child {
+    margin-top: 0;
+  }
+
+  .info-box-content > *:last-child {
+    margin-bottom: 0;
   }
 }
 

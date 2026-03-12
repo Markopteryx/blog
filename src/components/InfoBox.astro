@@ -1,0 +1,16 @@
+---
+type Props = {
+  question: string;
+};
+
+const { question } = Astro.props;
+---
+
+<div class="info-box">
+  <span class="info-box-label">
+    {question}
+  </span>
+  <div class="info-box-content">
+    <slot />
+  </div>
+</div>
