@@ -4,6 +4,7 @@ import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
+import AsciiBackground from "@/components/AsciiBackground.astro";
 import "@/styles/global.css";
 
 type Props = {
@@ -147,7 +148,7 @@ const structuredData = {
     <script is:inline src="/toggle-theme.js"></script>
   </head>
   <body>
+    <AsciiBackground />
     <slot />
   </body>
 </html>
-

@@ -1,0 +1,70 @@
+<canvas
+  id="ascii-bg"
+  transition:persist
+  class="pointer-events-none fixed inset-0 -z-10 h-svh w-svw"
+  aria-hidden="true"></canvas>
+
+<script>
+  import { SIMS } from "@/lib/ascii";
+  import { mount } from "@/lib/ascii/render";
+
+  type Mode = "smoke" | "off" | "heap";
+  const KEY = "ascii-bg";
+  const MODES: Mode[] = ["smoke", "off", "heap"];
+
+  function readMode(): Mode {
+    try {
+      const v = localStorage.getItem(KEY) as Mode | null;
+      if (v && MODES.includes(v)) return v;
+    } catch {
+      // storage unavailable: fall through to default
+    }
+    return "smoke";
+  }
+
+  let mode = readMode();
+  let cleanup: (() => void) | undefined;
+  let generation = 0;
+
+  async function apply() {
+    const mine = ++generation;
+    cleanup?.();
+    cleanup = undefined;
+    const canvas = document.querySelector<HTMLCanvasElement>("#ascii-bg");
+    if (!canvas) return;
+    canvas.hidden = mode === "off";
+    const info = SIMS.find(s => s.slug === mode);
+    if (!info) return;
+    const make = await info.load();
+    if (mine !== generation) return; // mode changed while loading
+    cleanup = mount(canvas, make());
+  }
+
+  // The header is re-rendered on every navigation, so re-sync its buttons.
+  function syncButtons() {
+    document.querySelectorAll<HTMLElement>("[data-bg-mode]").forEach(b => {
+      b.setAttribute("aria-pressed", String(b.dataset.bgMode === mode));
+    });
+    document
+      .querySelectorAll<HTMLElement>("[data-bg-switch]")
+      .forEach(el => (el.dataset.mode = mode));
+  }
+
+  document.addEventListener("click", e => {
+    const btn = (e.target as Element).closest<HTMLElement>("[data-bg-mode]");
+    if (!btn) return;
+    mode = btn.dataset.bgMode as Mode;
+    try {
+      localStorage.setItem(KEY, mode);
+    } catch {
+      // not persisted, still applies for this page view
+    }
+    syncButtons();
+    apply();
+  });
+  // after-swap runs before paint, so the knob doesn't animate on navigation
+  document.addEventListener("astro:after-swap", syncButtons);
+  document.addEventListener("astro:page-load", syncButtons);
+
+  apply();
+</script>
