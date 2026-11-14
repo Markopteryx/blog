@@ -12,17 +12,25 @@
   const KEY = "ascii-bg";
   const MODES: Mode[] = ["smoke", "off", "heap"];
 
-  function readMode(): Mode {
+  /** The visitor's explicit choice, if they have made one. */
+  function readChoice(): Mode | null {
     try {
       const v = localStorage.getItem(KEY) as Mode | null;
       if (v && MODES.includes(v)) return v;
     } catch {
-      // storage unavailable: fall through to default
+      // storage unavailable: fall through to the per-page default
     }
-    return "smoke";
+    return null;
   }
 
-  let mode = readMode();
+  // Until the visitor picks something: heap on the landing page, off elsewhere.
+  function currentMode(): Mode {
+    const onLanding = !!document.querySelector('[data-layout="index"]');
+    return choice ?? (onLanding ? "heap" : "off");
+  }
+
+  let choice = readChoice();
+  let mode = currentMode();
   let cleanup: (() => void) | undefined;
   let generation = 0;
 
@@ -53,9 +61,10 @@
   document.addEventListener("click", e => {
     const btn = (e.target as Element).closest<HTMLElement>("[data-bg-mode]");
     if (!btn) return;
-    mode = btn.dataset.bgMode as Mode;
+    choice = btn.dataset.bgMode as Mode;
+    mode = choice;
     try {
-      localStorage.setItem(KEY, mode);
+      localStorage.setItem(KEY, choice);
     } catch {
       // not persisted, still applies for this page view
     }
@@ -63,8 +72,15 @@
     apply();
   });
   // after-swap runs before paint, so the knob doesn't animate on navigation
-  document.addEventListener("astro:after-swap", syncButtons);
-  document.addEventListener("astro:page-load", syncButtons);
+  function onNavigate() {
+    const next = currentMode();
+    const changed = next !== mode;
+    mode = next;
+    syncButtons();
+    if (changed) apply();
+  }
+  document.addEventListener("astro:after-swap", onNavigate);
+  document.addEventListener("astro:page-load", onNavigate);
 
   apply();
 </script>
